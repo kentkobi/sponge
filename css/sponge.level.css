@@ -1,0 +1,10 @@
+.tile {
+	background: url(../img/tiles/grass.jpg);
+	height: 70px;
+	width: 70px;
+}
+
+.tile.highlight{
+ 	background-color: green;
+ 	opacity: 0.5;
+}

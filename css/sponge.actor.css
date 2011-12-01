@@ -1,0 +1,11 @@
+.monster .body{
+	background: url(../img/actors/zombie_0.png) no-repeat -29px -40px;
+	height: 75px;
+	width: 70px;
+}
+
+.skeleton .body{
+	background: url(../img/actors/skeleton_0.png) no-repeat -29px -40px;
+	height: 75px;
+	width: 70px;
+}
