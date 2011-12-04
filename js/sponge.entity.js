@@ -10,7 +10,7 @@ var Entity = Base.extend({
         var self = this;
         var sprite = $("<div class='" + self.type + "' id='" + self.id + "'><div class='wrapper'><div class='body'></div></div></div>");
         
-        self.tile = $("#tile_" + self.location.row + "_" + self.location.col);    
+        self.tile = $("#tile_" + self.location.col + "_" + self.location.row);    
         
         sprite.css({
         	position: 'absolute',
@@ -26,20 +26,20 @@ var Entity = Base.extend({
     init: function(){
         return this;
     },
-    animate: function(){
+    animate: function(options){
         var self = this;
         var body = $(".body", self.domRoot);
         clearTimeout(this.timer);
         
         var defaults = {
-            start:            0,
-            frames:            3,        // number of frames to be displayed when playing the animation
-            distance:        70,        // distance in pixels between two frames
-            delay:             200,    // rate at which the frame must be played in miliseconds
-            offsetY:        0,
-            offsetX:        0,
-            repeat:            -1,        // number of times to repeat (-1 for infinte)
-            count:            0
+            start: 0,
+            frames: 3,        // number of frames to be displayed when playing the animation
+            distance: 128,        // distance in pixels between two frames
+            delay: 200,    // rate at which the frame must be played in miliseconds
+            offsetY: 0,
+            offsetX: 0,
+            repeat: -1,        // number of times to repeat (-1 for infinte)
+            count: 0
         };
         options = $.extend(defaults, options);
 

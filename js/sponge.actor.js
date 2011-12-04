@@ -1,9 +1,39 @@
+var SPRITE = {
+	walk: {
+		north: -547,
+		east: -547,
+		south: -547,
+		west: -547
+	},
+	attack: {
+		north: -547,
+		east: -547,
+		south: -547,
+		west: -547
+	},
+	idle: {
+		north: -547,
+		east: -547,
+		south: -547,
+		west: -547
+	},
+	die:{
+		north: -547,
+		east: -547,
+		south: -547,
+		west: -547
+	}
+}
+
 var Actor = Entity.extend({
     faction: null,
     type: null,
+    state: null,
+    orientation: null,
     health: 100,
     attack: 0,
     defense: 0,
+    range: 2,
     install: function(){
 		var self = this;
 		
@@ -15,16 +45,48 @@ var Actor = Entity.extend({
 			self.select();
 		});
 		
+		self.idle();
+		
 		console.log("actor installed");
 		return this;
 	},
+	idle: function(){
+		var offsetY = 0;
+		
+		switch(this.orientation){
+			case("north"):
+				offsetY = -294;
+				break;
+			case("east"):
+				offsetY = -547;
+				break;
+			case("south"):
+				offsetY = -809;
+				break;
+			case("west"):
+				offsetY = -40;
+				break;
+		}
+					
+        this.animate({
+            start: 0,
+            frames: 3,        // number of frames to be displayed when playing the animation
+            distance: 128,        // distance in pixels between two frames
+            offsetY: offsetY,
+            offsetX: 29,
+            delay: 250,    // rate at which the frame must be played in miliseconds
+            repeat: -1        // number of times to repeat (-1 for infinte)
+        })
+    },
     move : function( path ) {
         var self     = this;
         var sprite     = self.domRoot;
         
         if( path.length ){
             var direction = null;
-            var target = $("#cell_" + path[0].x + "_" + path[0].y);
+            var target = $("#tile_" + path[0].col + "_" + path[0].row);
+            var offsetY = -40;
+            target.css("background","red");
             
             /* get x,y of player */
             var player_x = sprite.position().left;
@@ -34,17 +96,35 @@ var Actor = Entity.extend({
             var target_x = target.position().left;
             var target_y = target.position().top;
             
-            if(player_y > target_y){
-               direction = "north";
-            } else if (player_y < target_y) {
-               direction = "south";
-            }
+            if(target_y != player_y){
+				if(target_y < player_y){
+					// going up
+					offsetY = -294;
+				} else {
+					// going down
+					offsetY = -809;
+				}
+			}
+			
+			if(target_x != player_x){
+				if(target_x > player_x){
+					// going right
+					offsetY = -547;
+				} else {
+					// going left
+					offsetY = -40;
+				}
+			}
             
-            if(player_x < target_x){
-               direction = "east";
-            } else if (player_x > target_x) {
-               direction = "west";
-            }
+            this.animate({
+				start:			4,
+				frames:			7,		// number of frames to be displayed when playing the animation
+				distance:		128,		// distance in pixels between two frames
+				delay: 			250,		// rate at which the frame must be played in miliseconds
+				offsetY:		offsetY,
+				offsetX:		29,
+				repeat:			1		// number of times to repeat (-1 for infinte)
+			})
             
             sprite.addClass(direction).animate({
                 top : target_y,
@@ -58,30 +138,35 @@ var Actor = Entity.extend({
                 target.removeClass("active");
                 self.move( path );
             });    
+        }else{
+        	self.idle();
         }
     },
     attack: function(){
         this.animate({
-            start:            0,
-            frames:            4,        // number of frames to be displayed when playing the animation
-            distance:        70,        // distance in pixels between two frames
-            offsetY:        offsetY,
-            delay:             150,    // rate at which the frame must be played in miliseconds
-            repeat:            1        // number of times to repeat (-1 for infinte)
+            start: 0,
+            frames: 4,        // number of frames to be displayed when playing the animation
+            distance: 70,        // distance in pixels between two frames
+            offsetY: offsetY,
+            delay: 150,    // rate at which the frame must be played in miliseconds
+            repeat: 1        // number of times to repeat (-1 for infinte)
         })
+    },
+    hit: function(){
+    	
     },
     die: function() {
         this.state = "dead";
         this.domRoot.stop(true).addClass("dead");
         
         this.animate({
-            start:            28,
-            frames:            8,        // number of frames to be displayed when playing the animation
-            distance:        128,        // distance in pixels between two frames
-            offsetY:        -40,
-            offsetX:        29,
-            delay:             70,    // rate at which the frame must be played in miliseconds
-            repeat:            1        // number of times to repeat (-1 for infinte)
+            start: 28,
+            frames: 8,        // number of frames to be displayed when playing the animation
+            distance: 128,        // distance in pixels between two frames
+            offsetY: -40,
+            offsetX: 29,
+            delay: 70,    // rate at which the frame must be played in miliseconds
+            repeat:  1        // number of times to repeat (-1 for infinte)
         });    
         
         this.uninstall();

@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="js/sponge.actor.js"></script>
 	<script type="text/javascript" src="js/sponge.game.js"></script>
 	<script type="text/javascript" src="js/sponge.level.js"></script>
+	<script type="text/javascript" src="js/sponge.level.path.js"></script>
 	<script type="text/javascript" src="js/sponge.player.js"></script>
 	<script type="text/javascript" src="js/sponge.mediator.js"></script>
 	<script type="text/javascript">
@@ -37,6 +38,7 @@
 		           {
 		           		id: 1,
 		               	type: "monster",
+		               	orientation: "east",
 		               	attack: 80,
 		               	defense: 20,
 		               	location: {
@@ -47,31 +49,34 @@
 		           {
 		           		id: 2,
 		               type: "monster",
+		               orientation: "east",
 		               attack: 50,
 		               defense: 50,
 		               location: {
 		               		row:1,
-		               		col:0
+		               		col:1
 		               }
 		           },
 		           {
 		           		id: 3,
 		               type: "monster",
+		               orientation: "east",
 		               attack: 60,
 		               defense: 40,
 		               location: {
 		               		row:2,
-		               		col:0
+		               		col:2
 		               }
 		           },
 		           {
 		           		id: 4,
 		               type: "monster",
+		               orientation: "east",
 		               attack: 50,
 		               defense: 50,
 		               location: {
 		               		row:3,
-		               		col:0
+		               		col:3
 		               }
 		           }
 		        ]
@@ -83,41 +88,45 @@
 		           {
 		           		id: 5,
 		               type: "skeleton",
+		               orientation: "west",
 		               attack: 80,
 		               defense: 20,
 		               location: {
 		               		row:0,
-		               		col:10
+		               		col:9
 		               }
 		           },
 		           {
 		           		id: 6,
 		               type: "skeleton",
+		               orientation: "west",
 		               attack: 50,
 		               defense: 50,
 		               location: {
 		               		row:1,
-		               		col:10
+		               		col:8
 		               }
 		           },
 		           {
 		           		id: 7,
 		               type: "skeleton",
+		               orientation: "west",
 		               attack: 60,
 		               defense: 40,
 		               location: {
 		               		row:2,
-		               		col:10
+		               		col:7
 		               }
 		           },
 		           {
 		           		id: 8,
 		               type: "skeleton",
+		               orientation: "west",
 		               attack: 50,
 		               defense: 50,
 		               location: {
 		               		row:3,
-		               		col:10
+		               		col:6
 		               }
 		           }
 		        ]

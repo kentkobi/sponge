@@ -28,15 +28,21 @@ var Mediator = Base.extend({
                 //target.update(damage)
                 break;
             case "move":
-            	this.game.level.highlight(actor.tile, 2);
-                //determine path
-                //actor.move(path)
+            	var self = this;
+            	self.game.level.highlight(actor.tile, actor.range);
+            	$(".highlight").bind("click", function(){
+            		$(".highlight").removeClass("highlight");
+            		var path = self.game.level.path(actor.tile, $(this));
+	                actor.move(path);
+            	})
+                                
                 break;
             default:
                 alert("error")
         }
         
         //this.publish(data);
+        return this;
     },
     select: function (data){
         var actor = data.actor;
