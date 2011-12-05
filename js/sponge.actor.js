@@ -84,9 +84,8 @@ var Actor = Entity.extend({
         
         if( path.length ){
             var direction = null;
-            var target = $("#tile_" + path[0].col + "_" + path[0].row);
+            var target = $("#tile_" + path[0][0] + "_" + path[0][1]);
             var offsetY = -40;
-            target.css("background","red");
             
             /* get x,y of player */
             var player_x = sprite.position().left;

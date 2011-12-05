@@ -25,33 +25,18 @@ var Level = Base.extend({
         $(".tile", this.domRoot).bind("click", function(){
         	self.select($(this));
         });
-        /* two dimensional array to represent the grid */
-       /*for(var x = 0; x < grid.length; x++) {
-            for(var y = 0; y < grid[x].length; y++) {
-                grid[x][y].f = 0;
-                grid[x][y].g = 0;
-                grid[x][y].h = 0;
-                grid[x][y].debug = "";
-                grid[x][y].parent = null;
-            }   
-        }*/
-        this.grid = new Array(this.cols);
-		for (i=0; i < this.cols; i++) {
-			this.grid[i] = new Array(this.rows)
+
+        this.grid = new Array(this.rows);
+		for (i=0; i < this.rows; i++) {
+			this.grid[i] = new Array(this.cols)
 		}
-		console.log(this.rows, this.cols);
 		
-		for(var y = 0; y < this.rows; y++) {
-            for(var x = 0; x < this.cols; x++) {
-                /*if (tiles[i][j].isWalkable == true){
-					pathArray[i][j] = "w";
-				}else{
-					pathArray[i][j] = "u";
-				}*/
-				this.grid[x][y] = "w";
+		for(var x = 0; x < this.rows; x++) {
+            for(var y = 0; y < this.cols; y++) {
+                //for now, everything is walkable
+				this.grid[x][y] = 0;
             }   
         }
-
 
         console.log("level installed");
         
@@ -89,18 +74,10 @@ var Level = Base.extend({
         return tile
     },
     path: function(start_tile, end_tile){
-    	var grid = this.grid;
-    	/* set start position and end position */
-    	grid[start_tile.data("location").y][start_tile.data("location").x] = "s",
-    	grid[end_tile.data("location").y][end_tile.data("location").x] = "g";
-    		
-    	console.log(start_tile.data("location").x, start_tile.data("location").y);
-		console.log(end_tile.data("location").x, end_tile.data("location").y);
-		console.log(grid);
-		
-		var path = astar(grid, 'manhattan', false);
-		grid[start_tile.data("location").y][start_tile.data("location").x] = "w",
-    	grid[end_tile.data("location").y][end_tile.data("location").x] = "w";
+    	var grid = this.grid;	
+		var path = AStar(grid,[start_tile.data("location").x, start_tile.data("location").y], [end_tile.data("location").x, end_tile.data("location").y], 'Manhattan');
+		console.log(path);
+
 		return path;
     },
     lineofsight: function(start_tile, end_tile){

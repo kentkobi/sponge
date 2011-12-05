@@ -31,7 +31,7 @@ var Mediator = Base.extend({
             	var self = this;
             	self.game.level.highlight(actor.tile, actor.range);
             	$(".highlight").bind("click", function(){
-            		$(".highlight").removeClass("highlight");
+            		$(".highlight").removeClass("highlight").unbind();
             		var path = self.game.level.path(actor.tile, $(this));
 	                actor.move(path);
             	})
