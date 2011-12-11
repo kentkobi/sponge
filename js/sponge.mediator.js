@@ -26,6 +26,15 @@ var Mediator = Base.extend({
                 //determine damage
                 //actor.attack(location)
                 //target.update(damage)
+                
+                var self = this;
+            	self.game.level.highlight(actor.tile, actor.range);
+            	$(".highlight").bind("click", function(){
+            		$(".highlight").removeClass("highlight").unbind();
+            		actor.attack($(this));
+            	})
+                console.log(actor);
+                
                 break;
             case "move":
             	var self = this;
